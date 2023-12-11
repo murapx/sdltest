@@ -6,6 +6,8 @@ int game_is_running = FALSE;
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
+int last_frame_time = 0;
+
 struct rec {
     float x;
     float y;
@@ -64,8 +66,13 @@ void process_input(){
 }
 
 void update(){
-    rec.x += 1;
-    rec.y += 1;
+    // Get Delta Time (last frame elapsed)
+    float delta_time = (SDL_GetTicks() - last_frame_time) / 1000.0f;
+
+    last_frame_time = SDL_GetTicks();
+
+    rec.x += 50 * delta_time;
+    rec.y += 50 * delta_time;
 }
 
 void render(){
